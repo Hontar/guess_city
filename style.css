@@ -1,0 +1,25 @@
+/* Limit image width to avoid overflow the container */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body{
+  margin: 0;
+}
+
+  #canvas {
+    position: relative;
+    /* top: 300px;
+    left: 50%;  */
+    transform: translateX(-50%);
+    width: 80%;
+    /* margin: 0 auto; */
+    border: 1px solid black;
+  }
+  select {   
+    font-family: 'Montserrat' !important;
+    font-size: 12px;
+    color: #555555;       
+
+  }

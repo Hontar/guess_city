@@ -1,0 +1,66 @@
+{
+    "levels": [
+        {
+            "name": "Choose level"
+        },
+        {
+            "name": "Level 1",
+            "tilesAmount": 3
+        },
+        {
+            "name": "Level 2",
+            "tilesAmount": 5
+        },
+        {
+            "name": "Level 3",
+            "tilesAmount": 8
+        }
+    ],
+    "pictures": [
+        {
+            "name": "Kharkiv",
+            "url": 
+            
+                "http://stroyobzor.ua/assets/files/%D1%84%D0%BE%D1%82%D0%BE%20WWW/%D0%B2%D0%B8%D0%B4%D1%8B%20%D1%85%D0%B0%D1%80%D1%8C%D0%BA%D0%BE%D0%B2%D0%B0/%D0%B3%D0%BE%D1%81%D0%BF%D1%80%D0%BE%D0%BC%20%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9.jpg",			
+            "mapUrl":
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d164152.76882060966!2d36.14574225861665!3d49.99472774462043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4127a09f63ab0f8b%3A0x2d4c18681aa4be0a!2z0KXQsNGA0YzQutC-0LIsINCl0LDRgNGM0LrQvtCy0YHQutCw0Y8g0L7QsdC70LDRgdGC0Yw!5e0!3m2!1sru!2sua!4v1538729313730" 
+        },
+        {
+            "name": "Paris",		
+            "url": 
+            
+                "https://puteshestvovat.com/wp-content/uploads/2016/12/ejfeleva-bashnya.jpg",
+            "mapUrl":
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.75769486208!2d2.2770203208266304!3d48.85895068082362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2z0J_QsNGA0LjQtiwg0KTRgNCw0L3RhtC40Y8!5e0!3m2!1sru!2sua!4v1538729362966" 
+        },
+        {
+            "name": "Venice",
+            "url": 
+            
+                "http://el-voyage.com.ua/wp-content/uploads/2017/08/Venetsiya.jpg",			
+            "mapUrl":
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d179278.72852652392!2d12.241659597219599!3d45.404698693671286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477eb1daf1d63d89%3A0x7ba3c6f0bd92102f!2z0JLQtdC90LXRhtC40Y8sINCY0YLQsNC70LjRjw!5e0!3m2!1sru!2sua!4v1538729397231" 
+        },	
+        {
+            "name": "London",
+            "url": 
+            
+                "https://img.pac.ru/resorts/240733/245882/big/8F8D988E7F00010110AB4E91E0DCCB0F.jpg",			
+            "mapUrl":
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2z0JvQvtC90LTQvtC9LCDQktC10LvQuNC60L7QsdGA0LjRgtCw0L3QuNGP!5e0!3m2!1sru!2sua!4v1539022816976" 
+        },
+        {
+            "name": "Sydney",
+            "url": 
+            
+            "https://avatars.mds.yandex.net/get-pdb/33827/543f3c65-8797-477a-92ba-c87844a07553/s1200",
+            "mapUrl":
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.2712077331!2d150.65179362471457!3d-33.84792704788401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2z0KHQuNC00L3QtdC5INCd0L7Qsi4g0K7Qti4g0KPRjdC70YzRgSwg0JDQstGB0YLRgNCw0LvQuNGP!5e0!3m2!1sru!2sua!4v1539023315790" 
+        }	
+    ],
+    "cardBack":[
+        {
+            "url": "https://img.artlebedev.ru/everything_files/images/2356/mbi-anon.gif"
+        }
+    ]
+}
