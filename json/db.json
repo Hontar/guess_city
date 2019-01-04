@@ -1,0 +1,128 @@
+{
+  "levels": [
+    {
+      "name": "Choose level"
+    },
+    {
+      "name": "Level 1",
+      "tilesAmount": 3
+    },
+    {
+      "name": "Level 2",
+      "tilesAmount": 5
+    },
+    {
+      "name": "Level 3",
+      "tilesAmount": 8
+    }
+  ],
+  "pictures": [
+    {
+      "name": "Kharkiv",
+      "url": "http://stroyobzor.ua/assets/files/%D1%84%D0%BE%D1%82%D0%BE%20WWW/%D0%B2%D0%B8%D0%B4%D1%8B%20%D1%85%D0%B0%D1%80%D1%8C%D0%BA%D0%BE%D0%B2%D0%B0/%D0%B3%D0%BE%D1%81%D0%BF%D1%80%D0%BE%D0%BC%20%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9.jpg",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d164152.76882060966!2d36.14574225861665!3d49.99472774462043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4127a09f63ab0f8b%3A0x2d4c18681aa4be0a!2z0KXQsNGA0YzQutC-0LIsINCl0LDRgNGM0LrQvtCy0YHQutCw0Y8g0L7QsdC70LDRgdGC0Yw!5e0!3m2!1sru!2sua!4v1538729313730"
+    },
+    {
+      "name": "Paris",
+      "url": "https://puteshestvovat.com/wp-content/uploads/2016/12/ejfeleva-bashnya.jpg",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.75769486208!2d2.2770203208266304!3d48.85895068082362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2z0J_QsNGA0LjQtiwg0KTRgNCw0L3RhtC40Y8!5e0!3m2!1sru!2sua!4v1538729362966"
+    },
+    {
+      "name": "Venice",
+      "url": "http://el-voyage.com.ua/wp-content/uploads/2017/08/Venetsiya.jpg",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d179278.72852652392!2d12.241659597219599!3d45.404698693671286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477eb1daf1d63d89%3A0x7ba3c6f0bd92102f!2z0JLQtdC90LXRhtC40Y8sINCY0YLQsNC70LjRjw!5e0!3m2!1sru!2sua!4v1538729397231"
+    },
+    {
+      "name": "London",
+      "url": "https://img.pac.ru/resorts/240733/245882/big/8F8D988E7F00010110AB4E91E0DCCB0F.jpg",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2z0JvQvtC90LTQvtC9LCDQktC10LvQuNC60L7QsdGA0LjRgtCw0L3QuNGP!5e0!3m2!1sru!2sua!4v1539022816976"
+    },
+    {
+      "name": "Sydney",
+      "url": "https://avatars.mds.yandex.net/get-pdb/33827/543f3c65-8797-477a-92ba-c87844a07553/s1200",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.2712077331!2d150.65179362471457!3d-33.84792704788401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2z0KHQuNC00L3QtdC5INCd0L7Qsi4g0K7Qti4g0KPRjdC70YzRgSwg0JDQstGB0YLRgNCw0LvQuNGP!5e0!3m2!1sru!2sua!4v1539023315790"
+    }
+  ],
+  "cardBack": [
+    {
+      "url": "https://img.artlebedev.ru/everything_files/images/2356/mbi-anon.gif"
+    }
+  ],
+  "lastUpdate": [
+    {
+      "date": "04.01.2019",
+      "time": "20:07:39",
+      "id": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "key": "d11a6231c18b85124b15cf5f69dd78ca9d46d6b80d82c6265c57bbf41871b788",
+      "name": "Владимир",
+      "lastName": "Кононенко",
+      "email": "vladimir.kononenko@gmail.com",
+      "photoURL": "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png"
+    },
+    {
+      "id": 2,
+      "key": "76b165538de7f6d47d8178e72ddc7aefd7d178854ba7ba5ad6621c2c211f400f",
+      "name": "Никита",
+      "lastName": "Терещенко",
+      "email": "nikita.tereshenko@gmail.com",
+      "photoURL": "https://i.pinimg.com/originals/3d/47/4f/3d474f82ff71595e8081f9a120892ae8.gif"
+    },
+    {
+      "id": 3,
+      "key": "f4b90ed9a6ea01d1b48a38c4745c785fddc99acae5894e55c9d4b09fb34e0268",
+      "name": "Tim",
+      "lastName": "Wagner",
+      "email": "timVagner@gmail.com",
+      "photoURL": "https://vignette.wikia.nocookie.net/yogscast/images/8/8a/Avatar_Turps_2015.jpg"
+    },
+    {
+      "id": 4,
+      "key": "fa3009e11970d76c003923197c62f478e9772407c8c593605049e7f45d6c45f6",
+      "name": "James",
+      "lastName": "Bond",
+      "email": "jamesBond@gmail.com",
+      "photoURL": "https://vignette2.wikia.nocookie.net/yogscast/images/5/59/Avatar_Lewis_2015.png"
+    },
+    {
+      "key": "d4ae253ad3b3fb3e906480f67a49103d931b41a8e9b94d05b74ca52cf8df4930",
+      "name": "vvv",
+      "email": "vvv@mail.ru",
+      "id": 5
+    },
+    {
+      "key": "772c884d9d3fda2e916ca80b39f133cf48f86260da2207b115d9668fa52bb0a4",
+      "name": "Vasya",
+      "email": "vas@gmail.com",
+      "id": 6
+    },
+    {
+      "key": "3aa9809b08275d00c467acfcb92946678883ed1b34b507dfe742610c4d345182",
+      "name": "asd",
+      "email": "asd@mail.com",
+      "id": 7
+    },
+    {
+      "key": "2d14b6d08a8fc6f482418ddf6d92ac484e01bea061fb17f828fed7c3cc6b6635",
+      "name": "fff",
+      "email": "fff@mail.com",
+      "id": 8
+    },
+    {
+      "key": "87904d8c8e9f5452220f71ad36a4953a8396a972dc38fccbaaaec66407040c64",
+      "name": "ggg",
+      "email": "ggg@mail.com",
+      "id": 9
+    },
+    {
+      "key": "eb904a7445d856d9d1c583b2f4fe0450526ce876893825d8deb11d6d81d65a37",
+      "name": "ghj",
+      "email": "ghj@mail.com",
+      "id": 10
+    }
+  ]
+}

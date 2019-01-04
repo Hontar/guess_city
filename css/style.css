@@ -1,0 +1,66 @@
+/* Limit image width to avoid overflow the container */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url("https://use.fontawesome.com/releases/v5.0.13/css/all.css");
+
+*{
+  margin: 0px;
+  padding: 0px;
+  transition: all 0.5s ease;
+}
+body{
+  font-family: "Montserrat";
+  /* position: relative; */
+}
+
+
+header{
+  padding: 20px 0;
+  /* height: 10vh;  */
+  /* background-color: #0ebfdd; */
+}
+main{
+  background-color: #f8f8f8;
+    
+}
+footer {
+  height: 44px;
+  background-color: #0f7663; 
+  
+}
+#wrapper {
+  max-width: 70%;
+  margin: 0px auto;
+  height: calc(100vh - 113px);
+  position: relative;
+  /* padding-bottom: 40px; */
+}
+
+#app_name{
+	font-size: 24px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+
+
+
+
+
+#canvas {
+  position: relative;
+  /* top: 300px;
+  left: 50%;  */
+  transform: translateX(-50%);
+  width: 80%;
+  /* margin: 0 auto; */
+  border: 1px solid black;
+}
+select {   
+  font-family: 'Montserrat' !important;
+  font-size: 12px;
+  color: #555555;       
+
+}
