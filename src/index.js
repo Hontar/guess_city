@@ -17,6 +17,7 @@ function initRegistration(event){
                 document.createElement ( "registration-form" ), initialImg
             )        
             elem.dispatchEvent ( new Event ( "start" ) ) 
+            elem.style.zIndex = "15"
                
             
         })
@@ -31,6 +32,8 @@ function initRegistration(event){
         left: 50%;
         transform: translateX(-50%);
         bottom: 3%;
+        height: 45%;
+        z-index: 0;
       `
 }
 
@@ -44,32 +47,57 @@ function initMosaic(event){
             let mosaics = document.querySelector("#wrapper").insertBefore (
                 document.createElement ( "guess-mosaics" ), initialImg
             )
+            mosaics.coins = elem.user.name ? currentUser.score : 0
             var userProfile = addElem("div", header)
             userProfile.style = `
                 position: absolute;
                 top: 10px;
                 right: 10%;
+                display: flex;
             `
-            var userName = addElem ("p", userProfile)
+            var userAvatar = addElem ("img", userProfile)
+            console.log(currentUser.name)
+            userAvatar.src = currentUser.name === "Guest" || localStorage.getItem(`${currentUser.name}`) === "indefined" || !localStorage.getItem(`${currentUser.name}`) ?
+                "http://image.flaticon.com/icons/png/128/93/93656.png" : localStorage.getItem(`${currentUser.name}`)
+            userAvatar.style = `
+                height: 50px;
+                margin-right: 10px;
+            `
+            var userData = addElem ("div", userProfile)
+            var userName = addElem ("p", userData)
             userName.style = `
-                font-size: 1.25em;
+                font-size: 1.2em;
                 font-weight: 500;
-                color: #fafafa;
+                color: #000000;
             `
-            var userScore = addElem ("p", userProfile)
+            var userScore = addElem ("p", userData)
             userScore.style = `
-                font-size: 1.25em;
+                font-size: 0.8em;
                 font-weight: 500;
-                color: #fafafa;
+                color: #000000;
             `
             userName.innerHTML = `${currentUser.name}` 
-            userScore.innerHTML = `Attempts ${mosaics.counter}` 
+            userScore.innerHTML = `Attempts left: ${3- mosaics.counter} <br> 
+                Coins available: ${mosaics.coins}` 
             document.body.addEventListener("count", updateScore)
             function updateScore(){
-                userScore.innerHTML = `Attempts ${mosaics.counter}` 
+                userScore.innerHTML = `Attempts left: ${3 - mosaics.counter} <br> 
+                Coins available: ${mosaics.coins}` 
             }
-                   
-            // elem.dispatchEvent ( new Event ( "start" ) )            
+            document.body.addEventListener("win", uploadScore)
+            function uploadScore(){               
+                console.log(`http://localhost:3000/users/${currentUser.id}`)
+                fetch (`http://localhost:3000/users/${currentUser.id}`,{
+                    method: "PATCH",
+                    body: JSON.stringify({                        
+                        score: mosaics.coins
+                    }),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                })
+            }
+                       
         })
     
     

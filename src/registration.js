@@ -1,16 +1,17 @@
 class RegistrationForm extends HTMLElement {
     constructor(){
         super()
-        // this.users = []
+        
         this.user = {}
-        // Object.defineProperty ( this, "user", {
-        //     get () {
-        //         return user
-        //     },
-        //     set ( newUser ) { 
-        //         user = newUser               
-        //     }
-        // })
+        let avatar
+        Object.defineProperty ( this, "avatar", {
+            get () {
+                return avatar
+            },
+            set ( newAvatar ) { 
+                avatar = newAvatar               
+            }
+        })
         // this.loadData ( "http://localhost:3000/users" )
 
         // let currentTime = new Date().toLocaleString().split(", ")
@@ -23,8 +24,7 @@ class RegistrationForm extends HTMLElement {
         this.form = this.createElem("form", this.wrapper)
         
         this.titleForm =  this.wrapper.insertBefore(document.createElement("h2"), this.form)
-
-        // document.querySelector ( '#form-name' ).innerText = `Registration form`  
+       
         this.titleForm.innerText = `Registration form`     
 
         this.inputNameLabel = createLabel(this.form, this.inputName, "Your name")
@@ -35,6 +35,23 @@ class RegistrationForm extends HTMLElement {
 
         this.passwordLabel = createLabel(this.form, this.password, "Your password")
         this.password =createInput(this.passwordLabel, "password", "Password")
+
+        this.passConfirmLabel = createLabel(this.form,  this.passConfirm, "Confirm your password")
+        this.passConfirm =createInput(this.passConfirmLabel, "password", "Confirm password")
+
+        this.inputAvatarLabel = createLabel(this.form, this.inputAvatar, "Upload avatar")
+        this.inputAvatarLabel.id = "loadAvatar"
+        this.inputAvatar = createInput(this.inputAvatarLabel, "file", null)
+        this.inputAvatar.style.display = "none"
+        this.inputAvatar.onchange = function (event){            
+            var file = event.target.files [0]          
+            if ( file.type.split('/')[0] !== 'image' ) return                
+            var fileReader = new FileReader ()
+            fileReader.onload = function ( e ) {                        
+                    avatar =  e.target.result                                                       
+                }             
+            fileReader.readAsDataURL ( file )
+        }
         
         function createLabel(container = this.wrapper, forElem, labelText){
             let label = (!container ? document.body : container)
@@ -62,7 +79,10 @@ class RegistrationForm extends HTMLElement {
 
         this.btnSignIn = this.createElem( "a", this.wrapper) 
         this.btnSignIn.innerHTML = "Have an account? <span> Sign in </span>" 
-        this.btnSignIn.onclick = this.signIn.bind(this)    
+        this.btnSignIn.onclick = this.signIn.bind(this)
+        
+        this.demo = this.createElem( "p", this.form )
+        this.demo.id = "demo"
 
         this.btnSubmit = this.createElem( "button", this.form )
         this.btnSubmit.innerHTML = "submit"
@@ -83,7 +103,7 @@ class RegistrationForm extends HTMLElement {
             *{
                 margin: 0;
             }
-            span {
+            span, #cancel, #loadAvatar {
                 text-decoration: underline;
                 cursor: pointer;
             }
@@ -92,33 +112,34 @@ class RegistrationForm extends HTMLElement {
             }
             h2{
                 font-size: 20px;
-                /* color: #ffffff; */
-                /* text-transform: uppercase; */
+                /* color: #ffffff; */                
                 font-weight: 700;
                 text-align: center;
-                padding: 50px 0 50px;
+                padding: 40px 0 40px;
             }
-            form{
+            form, a{
                 text-align: center;
             }
-            a{
-                text-align: center;                
-            }
+           
             #wrapper{
                 height: 37vh;
-            }
-            
+            }            
             #cancel{
-                display: block;
-                text-decoration: underline;
-                cursor: pointer;
+                display: block;               
                 margin: 10px;
+            }
+            #demo{
+                font-size: 14px;
+                color: #000000;                
+                // font-weight: 700;
+                text-align: center;
+                padding: 10px 0 10px;
             }
             label{
                 margin: 10px 10px 10px;
                 display: inline-block;
+                text-align: center;
             }
-
             button{
                 display: block;
                 width: 170px;
@@ -151,9 +172,9 @@ class RegistrationForm extends HTMLElement {
                 font-family: 'Montserrat' !important;
                 font-size: 12px;
                 color: #555555;
+                outline: 0;
             }
             input  {
-                // width: 80%;
                 height: 24px;
                 margin: 0 10px;
                 padding: 10px;
@@ -192,9 +213,8 @@ class RegistrationForm extends HTMLElement {
             :focus::-webkit-input-placeholder {color: transparent}
             :focus::-moz-placeholder          {color: transparent}
             :focus:-moz-placeholder           {color: transparent}
-            :focus:-ms-input-placeholder      {color: transparent}
-              
-        `,
+            :focus:-ms-input-placeholder      {color: transparent}              
+        `
 
         this.shadow = this.attachShadow ( { mode: 'open' } )
         this.shadow.appendChild ( style )
@@ -238,9 +258,9 @@ class RegistrationForm extends HTMLElement {
         register (event){
             this.form.style.display = "block" 
             this.inputNameLabel.style.display = "inline-block"
+            this.passConfirmLabel.style.display = "inline-block"
             this.btnSignIn.style.display = "block"
-            this.btnReg.style.display = "none"
-            // this.inputName.style.display = "block"
+            this.btnReg.style.display = "none"            
             this.titleForm.innerHTML = "Registration"
             this.form.status = 0
             console.log(this.form.status )
@@ -250,30 +270,34 @@ class RegistrationForm extends HTMLElement {
             this.btnReg.style.display = "block"
             this.btnSignIn.style.display = "none"  
             this.inputNameLabel.style.display = "none"
+            this.passConfirmLabel.style.display = "none"
             this.titleForm.innerHTML = "Sign in"
             this.form.status = 1
             console.log(this.form.status )
         }
         async testData(event){
             event.preventDefault()
-            if(!this.email.value || !this.password.value) return
-            
+            if(!this.email.value || !this.password.value) {
+                this.demo.innerHTML = "Fill in necessary fields"
+                return 
+            }           
             var userKey = Sha256.hash (this.email.value + this.password.value)
             await this.loadData (this.email.value)
-            var presence = !!this.user
-            console.log(`private user ${this.user}`)
-            console.log(`public user ${this.user}`)
-
+            var presence = !!this.user 
+                                 
+            console.log(`user ${this.user}`)
             console.log(presence)
             
             if(this.form.status === 0){
                 if(!presence){
-                    await fetch ("http://localhost:3000/users",{
+                    if(this.password.value && this.passConfirm.value && this.password.value === this.passConfirm.value){
+                        await fetch ("http://localhost:3000/users",{
                         method: 'POST',
                         body: JSON.stringify({
                             key: userKey,
                             name: this.inputName.value,
-                            email: this.email.value
+                            email: this.email.value,
+                            score: 0
                         }),
                         headers: {
                             "content-type": "application/json"
@@ -293,7 +317,10 @@ class RegistrationForm extends HTMLElement {
                         }
                     })
                     // this.updateData()
-                    await this.loadData (this.email.value)
+                    await this.loadData (this.email.value)                   
+                   
+                    this.avatar ? localStorage.setItem(`${this.user.name}`, this.avatar) : null
+                    console.log(`this avatar storage ${this.avatar}`)
                     
 
                     this.titleForm.innerHTML = `Registration of new user ${this.inputName.value} was succeessful`
@@ -302,6 +329,10 @@ class RegistrationForm extends HTMLElement {
                     this.clearFields()
                     
                     document.body.dispatchEvent ( new Event ( "initMosaic" ) )
+                    } else {
+                        this.demo.innerHTML = "Entered passwords don't match"                        
+                    }
+                    
                 } else {
                     this.clearFields()
                     this.titleForm.innerHTML = `User ${this.inputName.value} already exists`
@@ -315,10 +346,13 @@ class RegistrationForm extends HTMLElement {
                         this.clearFields()
                         this.titleForm.innerHTML = `Hello ${currentUserName}!`
                         this.btnReg.style.display = "none"
-                        this.btnCancel.style.display = "none"                    
+                        this.btnCancel.style.display = "none"   
+                        
+                        this.avatar ? localStorage.setItem(`${this.user.name}`, this.avatar) : null
+                        console.log(`this avatar storage ${this.avatar}`)                
                         document.body.dispatchEvent ( new Event ( "initMosaic" ) )
                     } else {
-                        this.titleForm.innerHTML = `Not correct login or password`
+                        this.demo.innerHTML  = `Not correct login or password`
                     }
                     
                 } else {

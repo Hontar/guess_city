@@ -6,11 +6,11 @@ class GameOver extends HTMLElement{
         this.cross = createElem( "p", this.wrap )
         this.cross.id = "cross"
         this.cross.innerHTML = 'X'
-        this.setRes = (_counter=1, _score=100, _result=false, mapUrl) =>{
+        this.setRes = (_counter=1, _score=100, _coins=100, _result=false, mapUrl) =>{
             this.resTitle = createElem( "h3", this.wrap )
             this.resTitle.innerText = !_result ? "Oops... This time you loose. Try again!" : "Congratulations! You win!"
             this.statistics = createElem( "p", this.wrap )
-            this.statistics.innerHTML = `Attempts: ${_counter} <br> Score: ${_score}`
+            this.statistics.innerHTML = `Attempts: ${_counter} <br> Game score: ${_score} <br> Coins available: ${_coins}`
 
             this.mapWrap = createElem( "div", this.wrap )
             this.mapWrap.id = "mapWrap"
@@ -23,7 +23,10 @@ class GameOver extends HTMLElement{
         
 
 
-        this.closeRes = () => {this.wrap.parentNode.removeChild(this.wrap)}
+        this.closeRes = () => {
+            this.wrap.parentNode.removeChild(this.wrap)
+            
+        }
         this.cross.onclick = this.closeRes
 
         let style = document.createElement ( 'style' )

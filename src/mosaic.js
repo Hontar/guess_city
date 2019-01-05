@@ -19,6 +19,8 @@ class GuessMosaics extends HTMLElement{
         this.canvasWrap.id = "canvasWrap"
 
         this.counter = 0
+        this.setMaxScore
+        this.coins = 0
         this.difficultyLevels 
         this.difficultySelection
         this._img = new Image()
@@ -41,6 +43,10 @@ class GuessMosaics extends HTMLElement{
         this.changePic.innerText = "Change picture"
         this.changePic.onclick = this.choosePicture.bind(this, true)
 
+        this.openPiece = this.createElem("button", this.controls)
+        this.openPiece.innerHTML = "Open random piece for 12 coins"
+        this.openPiece.id = "open_piece"
+        this.openPiece.onclick = this.openRandomPiece.bind(this)
 
 
         let style = document.createElement ( 'style' )
@@ -52,8 +58,9 @@ class GuessMosaics extends HTMLElement{
             text-align: left;
         }
         #guessWrapper{
+            display: none;            
             text-align: center;
-            display: none;
+            
         }
         #canvasWrap{
             position: relative;
@@ -93,6 +100,12 @@ class GuessMosaics extends HTMLElement{
             background-color: #dc251f;
             color: #ffffff;
         }
+        #open_piece{
+            display: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            // margin: 10px 80px;
+        }
 
 
         // #ok{
@@ -114,6 +127,7 @@ class GuessMosaics extends HTMLElement{
             text-transform: uppercase;
             border: 1px solid #555555;
             border-radius: 5px;
+            outline: 0;
         }
         input  {
             /* width: 80%; */
@@ -181,7 +195,12 @@ class GuessMosaics extends HTMLElement{
                 .then (res => {
                     this.cardBack.src = res[0].url
                 console.log(res[0].url)
-                })
+                }),
+            // this.getData(`users/${currentUser.id}`)
+            // .then (res => {
+            //     this.coins = res[0].score
+            // console.log(res[0].score)
+            // })
         ] )
         
     }
@@ -196,8 +215,10 @@ class GuessMosaics extends HTMLElement{
         )[0].tilesAmount
         console.log(this.difficulty)
         this.guessWrapper.style.display = "block"
+        this.openPiece.style.display = "block"
         !document.querySelector("#initial_img") ? null : initialImg.parentNode.removeChild(initialImg) 
         // this.resizeImage()
+        this.choosePicture()
         this.onImage()
         // this._pieceWidth = Math.floor(this.currentPict.width / PUZZLE_DIFFICULTY)
         // this._pieceHeight = Math.floor(this.currentPict.height / PUZZLE_DIFFICULTY)
@@ -264,6 +285,7 @@ class GuessMosaics extends HTMLElement{
             piece = {};
             piece.sx = xPos + Math.abs(this._img.width - this._puzzleWidth) / 2;
             piece.sy = yPos + Math.abs(this._img.height - this._puzzleHeight) / 2;
+            piece.checked = "false"
             this._pieces.push(piece);
             xPos += this._pieceWidth;
             if(xPos >= this._puzzleWidth){
@@ -271,6 +293,7 @@ class GuessMosaics extends HTMLElement{
                 yPos += this._pieceHeight;
             }
         }
+        this.setMaxScore = this._pieces.length + 3
         console.dir(this._pieces)
         document.onmousedown = this.shufflePuzzle();
     }
@@ -314,7 +337,7 @@ class GuessMosaics extends HTMLElement{
             console.log(`sx ${this._currentPiece.sx} sy ${this._currentPiece.sy} xPos ${this._currentPiece.yPos} yPos ${this._currentPiece.yPos}`)
             console.log(`e.layerX ${e.layerX} e.offsetX ${e.offsetX} canvas.offsetLeft ${this._canvas.offsetLeft} `)
             this._stage.drawImage(this._img, this._currentPiece.sx, this._currentPiece.sy, this._pieceWidth, this._pieceHeight, this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);
-            this._stage.restore();
+            // this._stage.restore();
             // document.onmousemove = updatePuzzle;
             // document.onmouseup = pieceDropped;
         }
@@ -325,25 +348,52 @@ class GuessMosaics extends HTMLElement{
         var piece;
         for(i = 0;i < this._pieces.length;i++){
             piece = this._pieces[i];
-            if(this._mouse.x > piece.xPos && this._mouse.x < (piece.xPos + this._pieceWidth) && this._mouse.y > piece.yPos && this._mouse.y < (piece.yPos + this._pieceHeight)){
-                this.counter += 1
-                document.body.dispatchEvent(new Event ("count"))
-                return piece;
+            if(this._mouse.x > piece.xPos && this._mouse.x < (piece.xPos + this._pieceWidth) && 
+                this._mouse.y > piece.yPos && this._mouse.y < (piece.yPos + this._pieceHeight)){
+                    if(piece.checked === "false"){
+                         console.log(`piece ${piece}`)
+                        piece.checked = "true"
+                        this.setMaxScore -= 1
+                        document.body.dispatchEvent(new Event ("count"))
+                        return piece;
+                    }                   
             }            
         }
         return null;
+    }
+    openRandomPiece(){
+        console.log("open random")
+        if(this.coins < 12) return
+        let closedPieces = []
+        console.log(closedPieces)
+        for(let piece of this._pieces){
+            if (piece.checked === "false") 
+                closedPieces.push(piece)
+        }
+        let randomNum = Math.floor(Math.random() * closedPieces.length)
+        this._currentPiece = closedPieces[randomNum]
+        for(let elem of this._pieces){
+            if (JSON.stringify(elem) === JSON.stringify(this._currentPiece)) 
+                elem.checked = "true"
+        }  
+        this._stage.clearRect(this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);
+        this._stage.save();
+        this._stage.drawImage(this._img, this._currentPiece.sx, this._currentPiece.sy, this._pieceWidth, this._pieceHeight, this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);      
+        this.coins -= 12
+        document.body.dispatchEvent(new Event ("count"))
     }
 
     checkWin(){ 
         let map 
         var startXpos = Math.abs(this._img.width - this._puzzleWidth) / 2
         var startYpos = Math.abs(this._img.height - this._puzzleHeight) / 2         
-        if(this.counter >= 5){                  
+        if(this.counter >= 3){                  
             this._stage.drawImage(this._img, startXpos, startYpos, this._puzzleWidth, this._puzzleHeight, 0, 0, this._puzzleWidth, this._puzzleHeight)
             map = this.wrapper.appendChild(document.createElement("game-over"))
-            map.setRes(this.counter, 100, false) 
+            map.setRes(this.counter, 0, this.coins, false) 
             this.resetControls()
             this.counter = 0
+            this.setMaxScore = 0
             document.body.dispatchEvent(new Event ("count"))
             
         } else { 
@@ -368,15 +418,19 @@ class GuessMosaics extends HTMLElement{
                         border-radius: 10px;
                 `
                 this.counter += 1
+                this.setMaxScore -= 1
                 document.body.dispatchEvent(new Event ("count"))
                 setTimeout(function(){
                     tryAgain.parentNode.removeChild(tryAgain)
                 }, 3000)
             } else {
                 this._stage.drawImage(this._img, startXpos, startYpos, this._puzzleWidth, this._puzzleHeight, 0, 0, this._puzzleWidth, this._puzzleHeight)
+                this.coins += this.setMaxScore
+                document.body.dispatchEvent(new Event ("win"))
                 map = this.wrapper.appendChild(document.createElement("game-over"))
-                map.setRes(this.counter, 100, true, this.currentPict.mapUrl)
+                map.setRes(this.counter, this.setMaxScore, this.coins, true, this.currentPict.mapUrl)                
                 this.counter = 0
+                this.setMaxScore = 0
                 document.body.dispatchEvent(new Event ("count"))
                 this.resetControls()
             } 
@@ -388,6 +442,7 @@ class GuessMosaics extends HTMLElement{
         this.difficultySelection.value = this.levels[0].name
         this.guessInput.value = null
         this.guessWrapper.style.display = "none"
+        this.openPiece.style.display = "none"
     }
 
 

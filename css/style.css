@@ -9,14 +9,12 @@
 }
 body{
   font-family: "Montserrat";
-  /* position: relative; */
 }
 
 
 header{
   padding: 20px 0;
-  /* height: 10vh;  */
-  /* background-color: #0ebfdd; */
+  
 }
 main{
   background-color: #f8f8f8;
@@ -32,7 +30,6 @@ footer {
   margin: 0px auto;
   height: calc(100vh - 113px);
   position: relative;
-  /* padding-bottom: 40px; */
 }
 
 #app_name{
@@ -43,12 +40,6 @@ footer {
   text-align: center;
 }
 
-
-
-
-
-
-
 #canvas {
   position: relative;
   /* top: 300px;
@@ -57,10 +48,4 @@ footer {
   width: 80%;
   /* margin: 0 auto; */
   border: 1px solid black;
-}
-select {   
-  font-family: 'Montserrat' !important;
-  font-size: 12px;
-  color: #555555;       
-
 }
