@@ -52,13 +52,13 @@ function initMosaic(event){
             userProfile.style = `
                 position: absolute;
                 top: 10px;
-                right: 10%;
+                right: 20%;
                 display: flex;
             `
             var userAvatar = addElem ("img", userProfile)
             console.log(currentUser.name)
             userAvatar.src = currentUser.name === "Guest" || localStorage.getItem(`${currentUser.name}`) === "indefined" || !localStorage.getItem(`${currentUser.name}`) ?
-                "http://image.flaticon.com/icons/png/128/93/93656.png" : localStorage.getItem(`${currentUser.name}`)
+                "https://cdn.icon-icons.com/icons2/865/PNG/512/Citycons_building_icon-icons.com_67935.png" : localStorage.getItem(`${currentUser.name}`)
             userAvatar.style = `
                 height: 50px;
                 margin-right: 10px;
@@ -68,13 +68,13 @@ function initMosaic(event){
             userName.style = `
                 font-size: 1.2em;
                 font-weight: 500;
-                color: #000000;
+                color: #ffffff;
             `
             var userScore = addElem ("p", userData)
             userScore.style = `
                 font-size: 0.8em;
                 font-weight: 500;
-                color: #000000;
+                color: #ffffff;
             `
             userName.innerHTML = `${currentUser.name}` 
             userScore.innerHTML = `Attempts left: ${3- mosaics.counter} <br> 
@@ -87,6 +87,7 @@ function initMosaic(event){
             document.body.addEventListener("win", uploadScore)
             function uploadScore(){               
                 console.log(`http://localhost:3000/users/${currentUser.id}`)
+                if(!elem.user.name) return
                 fetch (`http://localhost:3000/users/${currentUser.id}`,{
                     method: "PATCH",
                     body: JSON.stringify({                        
@@ -100,8 +101,8 @@ function initMosaic(event){
                        
         })
     
-    
-    header.style.backgroundColor = "#19a1b5"
+    TweenMax.to(header, 2, {backgroundColor: "#14818d"})
+    // header.style.backgroundColor = "#14818d"
     
 }
 

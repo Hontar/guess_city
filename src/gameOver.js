@@ -1,7 +1,9 @@
 class GameOver extends HTMLElement{
     constructor(_counter=1, _score=100, _result=false){
         super()
-        this.wrap = createElem( "div" )
+        this.fullScreenWrap = createElem( "div" )
+        this.fullScreenWrap.id = "full_screen_wrap"
+        this.wrap = createElem( "div", this.fullScreenWrap )
         this.wrap.id = "wrap"     
         this.cross = createElem( "p", this.wrap )
         this.cross.id = "cross"
@@ -18,13 +20,14 @@ class GameOver extends HTMLElement{
             this.map.id = "map"
             this.map.src =  !_result ? "https://sus.org/wp-content/themes/sus/assets/images/bgs/sus-landing-skyline.png" : mapUrl
             this.map.innerHTML = 'width="100%" height="600" frameborder="0" style="border:0" allowfullscreen=""'
-        }
 
-        
-
+            TweenMax.fromTo(this.wrap, 2, {backgroundColor: "grey"}, {backgroundColor: "#108d92"})
+            TweenMax.fromTo(this.resTitle, 2, {color: " #555555"}, {color: "#ffffff"})
+            TweenMax.fromTo(this.statistics, 2, {color: " #555555"}, {color: "#ffffff"})
+        } 
 
         this.closeRes = () => {
-            this.wrap.parentNode.removeChild(this.wrap)
+            this.fullScreenWrap.parentNode.removeChild(this.fullScreenWrap)
             
         }
         this.cross.onclick = this.closeRes
@@ -33,7 +36,7 @@ class GameOver extends HTMLElement{
         style.textContent = `
             h3{
                 font-family: 'Montserrat';
-                font-size: 1.5em;
+                font-size: 2em;
                 color: #555555;
             }
             p{
@@ -53,14 +56,24 @@ class GameOver extends HTMLElement{
                 font-size: 1.25em;
                 color: #000000;
             }
+            #full_screen_wrap{
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #808080cc;
+            }
             #wrap{
                 display: block;
                 position: absolute;
-                width: 100%;
-                height: 100%;
+                width: 80%;
+                height: 80%;
                 top: 50%;
                 left: 50%; 
-                background-color: #d0d0d0;               
+                background-color: #d0d0d0; 
+                text-align: center;              
                 -webkit-transform: translate(-50%, -50%);
                     -ms-transform: translate(-50%, -50%);
                         transform: translate(-50%, -50%);
@@ -74,8 +87,8 @@ class GameOver extends HTMLElement{
             #mapWrap{
                 position: absolute;
                 width: 90%;
-                height: 60%;
-                top: 65%;
+                height: 70%;
+                top: 60%;
                 left: 50%;
                 overflow: hidden;
                 -webkit-transform: translate(-50%, -50%);
@@ -90,14 +103,13 @@ class GameOver extends HTMLElement{
             }`
             this.shadow = this.attachShadow ( { mode: 'open' } )
             this.shadow.appendChild ( style )
-            this.shadow.appendChild ( this.wrap )
+            this.shadow.appendChild ( this.fullScreenWrap )
             function createElem ( tagName, container ) {
                 return  ( !container ? document.body : container )
                         .appendChild (
                         document.createElement ( tagName )
                         )
-            }
-            
+            }            
     }
 }
 

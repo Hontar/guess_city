@@ -130,8 +130,9 @@ class RegistrationForm extends HTMLElement {
             }
             #demo{
                 font-size: 14px;
-                color: #000000;                
-                // font-weight: 700;
+                font-style: italic;
+                color: #c52d76;                
+                font-weight: 700;
                 text-align: center;
                 padding: 10px 0 10px;
             }
@@ -278,7 +279,7 @@ class RegistrationForm extends HTMLElement {
         async testData(event){
             event.preventDefault()
             if(!this.email.value || !this.password.value) {
-                this.demo.innerHTML = "Fill in necessary fields"
+                this.demo.innerHTML = "Enter email and password please"
                 return 
             }           
             var userKey = Sha256.hash (this.email.value + this.password.value)
@@ -352,7 +353,7 @@ class RegistrationForm extends HTMLElement {
                         console.log(`this avatar storage ${this.avatar}`)                
                         document.body.dispatchEvent ( new Event ( "initMosaic" ) )
                     } else {
-                        this.demo.innerHTML  = `Not correct login or password`
+                        this.demo.innerHTML  = `Incorrect login or password`
                     }
                     
                 } else {

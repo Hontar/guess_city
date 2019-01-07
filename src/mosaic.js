@@ -23,7 +23,7 @@ class GuessMosaics extends HTMLElement{
         this.coins = 0
         this.difficultyLevels 
         this.difficultySelection
-        this._img = new Image()
+        this._img 
         this.cardBack = new Image()
         this.currentPict 
         this.currentPictUrl 
@@ -56,6 +56,7 @@ class GuessMosaics extends HTMLElement{
         }
         #controls{
             text-align: left;
+            display: flex;
         }
         #guessWrapper{
             display: none;            
@@ -63,13 +64,15 @@ class GuessMosaics extends HTMLElement{
             
         }
         #canvasWrap{
-            position: relative;
-            top: 0;
+            position: absolute;
+            top: 57%; 
             left: 50%;
-            transform: translateX(-50%);
+            -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);           
         }
         #canvas{
-            box-sizing: border-box;
+            box-sizing: border-box;            
         }  
 
                
@@ -106,14 +109,6 @@ class GuessMosaics extends HTMLElement{
             text-transform: uppercase;
             // margin: 10px 80px;
         }
-
-
-        // #ok{
-        //     background-color: #ebb447;
-        // }
-        // #ok:hover{
-        //     background-color: #f99505;
-        // }
 
         select{
             margin: 10px;
@@ -189,18 +184,13 @@ class GuessMosaics extends HTMLElement{
             this.getData ( "pictures" )
                 .then ( x => {
                     this.pictures = x 
-                    this.choosePicture()               
+                    // this.choosePicture()               
                 }),
             this.getData("cardBack")
                 .then (res => {
                     this.cardBack.src = res[0].url
                 console.log(res[0].url)
-                }),
-            // this.getData(`users/${currentUser.id}`)
-            // .then (res => {
-            //     this.coins = res[0].score
-            // console.log(res[0].score)
-            // })
+                })
         ] )
         
     }
@@ -215,19 +205,22 @@ class GuessMosaics extends HTMLElement{
         )[0].tilesAmount
         console.log(this.difficulty)
         this.guessWrapper.style.display = "block"
-        this.openPiece.style.display = "block"
+        this.openPiece.style.display = "inline-block"
         !document.querySelector("#initial_img") ? null : initialImg.parentNode.removeChild(initialImg) 
-        // this.resizeImage()
+        
         this.choosePicture()
-        this.onImage()
-        // this._pieceWidth = Math.floor(this.currentPict.width / PUZZLE_DIFFICULTY)
-        // this._pieceHeight = Math.floor(this.currentPict.height / PUZZLE_DIFFICULTY)
+        // this.onImage()        
     }
+
+    
     choosePicture(){
+        this._img = new Image()
         this.currentPict = this.pictures[Math.floor(Math.random() * this.pictures.length)]
+        this._img.onload = this.onImage.bind(this)
         this._img.src = this.currentPict.url
-          
-        console.log(  this._img.src) 
+      
+        console.log(  `choosePic image src ${this._img.src}`) 
+        console.log( `choosePic image width ${this._img.width}`) 
         if(arguments[0] && this.difficulty > 0 ){            
             this._stage.clearRect(0,0,this._canvas.width,this._canvas.height)
             this._canvas.style.display = "none"
@@ -237,17 +230,15 @@ class GuessMosaics extends HTMLElement{
     } 
     onImage(e){
         let currentWidth = window.innerWidth * 0.7
-        let currentHeight = 0.65 * currentWidth
+        let currentHeight = 0.5 * currentWidth
         
         this._pieceWidth = Math.floor((this._img.width > currentWidth ? currentWidth : this._img.width) / this.difficulty)
         this._pieceHeight = Math.floor((this._img.height > currentHeight ? currentHeight : this._img.height) / this.difficulty)
         this._puzzleWidth = this._pieceWidth * this.difficulty
         this._puzzleHeight = this._pieceHeight * this.difficulty
 
-        // this._pieceWidth = Math.floor(this._img.width / this.difficulty)
-        // this._pieceHeight = Math.floor(this._img.height / this.difficulty)
-        // this._puzzleWidth = this._pieceWidth * this.difficulty
-        // this._puzzleHeight = this._pieceHeight * this.difficulty       
+        console.log( `Onimage currentWidth ${currentWidth}`)
+        console.log( `Onimage image width ${this._img.width}`)      
         
         console.log( `Onimage puzzle width ${this._puzzleWidth}`)
         this.setCanvas();
@@ -255,8 +246,8 @@ class GuessMosaics extends HTMLElement{
     }
     setCanvas(){
         console.log("hello")
-        // this._canvas = this.createElem('canvas', this.wrapper)
-        // this._stage = this._canvas.getContext('2d');
+        console.log( `setcanvas image width ${this._img.width}`) 
+        
         this._canvas.width = this._puzzleWidth;
         this._canvas.height = this._puzzleHeight;
         this._canvas.style.border = "1px solid black";
@@ -269,7 +260,6 @@ class GuessMosaics extends HTMLElement{
         this._pieces = [];
         this._mouse = {x:0,y:0};
         this._currentPiece = null;
-        // _currentDropPiece = null;
         var startXpos = Math.abs(this._img.width - this._puzzleWidth) / 2
         var startYpos = Math.abs(this._img.height - this._puzzleHeight) / 2
         
@@ -298,8 +288,7 @@ class GuessMosaics extends HTMLElement{
         document.onmousedown = this.shufflePuzzle();
     }
     shufflePuzzle(){        
-        // _pieces = shuffleArray(_pieces);
-        // _stage.clearRect(0,0,_puzzleWidth,_puzzleHeight);
+        console.log( `shufflePuzzle image width ${this._img.width}`) 
         let i;
         let piece;
         let xPos = 0
@@ -320,11 +309,6 @@ class GuessMosaics extends HTMLElement{
     } 
     onPuzzleClick(e){
         console.log("click")
-        // if(e.layerX || e.layerX == 0){
-        //     this._mouse.x = e.layerX - this._canvas.offsetLeft;
-        //     this. _mouse.y = e.layerY - this._canvas.offsetTop;
-        // }
-        // else 
         if(e.offsetX || e.offsetX == 0){
             this._mouse.x = e.offsetX - this._canvas.offsetLeft;
             this._mouse.y = e.offsetY - this._canvas.offsetTop;
@@ -333,13 +317,9 @@ class GuessMosaics extends HTMLElement{
         if(this._currentPiece != null){
             this._stage.clearRect(this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);
             this._stage.save();
-            // this._stage.globalAlpha = .9;
             console.log(`sx ${this._currentPiece.sx} sy ${this._currentPiece.sy} xPos ${this._currentPiece.yPos} yPos ${this._currentPiece.yPos}`)
             console.log(`e.layerX ${e.layerX} e.offsetX ${e.offsetX} canvas.offsetLeft ${this._canvas.offsetLeft} `)
-            this._stage.drawImage(this._img, this._currentPiece.sx, this._currentPiece.sy, this._pieceWidth, this._pieceHeight, this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);
-            // this._stage.restore();
-            // document.onmousemove = updatePuzzle;
-            // document.onmouseup = pieceDropped;
+            this._stage.drawImage(this._img, this._currentPiece.sx, this._currentPiece.sy, this._pieceWidth, this._pieceHeight, this._currentPiece.xPos,this._currentPiece.yPos,this._pieceWidth,this._pieceHeight);   
         }
     }
     checkPieceClicked(){
@@ -389,7 +369,7 @@ class GuessMosaics extends HTMLElement{
         var startYpos = Math.abs(this._img.height - this._puzzleHeight) / 2         
         if(this.counter >= 3){                  
             this._stage.drawImage(this._img, startXpos, startYpos, this._puzzleWidth, this._puzzleHeight, 0, 0, this._puzzleWidth, this._puzzleHeight)
-            map = this.wrapper.appendChild(document.createElement("game-over"))
+            map = document.body.appendChild(document.createElement("game-over"))
             map.setRes(this.counter, 0, this.coins, false) 
             this.resetControls()
             this.counter = 0
@@ -408,11 +388,11 @@ class GuessMosaics extends HTMLElement{
                     -ms-transform: translate(-50%, -50%);
                         transform: translate(-50%, -50%);
                     width: 90%;
-                    height: 140px;
+                    height: 80vh;
                     font-size: 2em;
                     font-weight: 500;
-                    line-height: 140px;
-                    background-color: #b61f4f;
+                    line-height: 80vh;
+                    background-color: #dc251f;
                     color: #fafafa;
                     -webkit-border-radius: 10px;
                         border-radius: 10px;
@@ -427,7 +407,7 @@ class GuessMosaics extends HTMLElement{
                 this._stage.drawImage(this._img, startXpos, startYpos, this._puzzleWidth, this._puzzleHeight, 0, 0, this._puzzleWidth, this._puzzleHeight)
                 this.coins += this.setMaxScore
                 document.body.dispatchEvent(new Event ("win"))
-                map = this.wrapper.appendChild(document.createElement("game-over"))
+                map = document.body.appendChild(document.createElement("game-over"))
                 map.setRes(this.counter, this.setMaxScore, this.coins, true, this.currentPict.mapUrl)                
                 this.counter = 0
                 this.setMaxScore = 0
@@ -444,8 +424,6 @@ class GuessMosaics extends HTMLElement{
         this.guessWrapper.style.display = "none"
         this.openPiece.style.display = "none"
     }
-
-
 
     buildTextSelect (options, container){
         var sel = document.createElement('select')
@@ -467,7 +445,4 @@ class GuessMosaics extends HTMLElement{
     
 }
 
-
-
 customElements.define("guess-mosaics", GuessMosaics)
-

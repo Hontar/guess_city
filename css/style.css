@@ -39,13 +39,3 @@ footer {
   font-weight: 700;
   text-align: center;
 }
-
-#canvas {
-  position: relative;
-  /* top: 300px;
-  left: 50%;  */
-  transform: translateX(-50%);
-  width: 80%;
-  /* margin: 0 auto; */
-  border: 1px solid black;
-}
