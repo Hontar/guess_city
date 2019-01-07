@@ -31,7 +31,7 @@ class RegistrationForm extends HTMLElement {
         this.inputName = createInput(this.inputNameLabel, "text", "Name")
 
         this.emailLabel = createLabel(this.form, this.email, "Your email")
-        this.email = createInput(this.emailLabel, "text", "Email")
+        this.email = createInput(this.emailLabel, "email", "Email")
 
         this.passwordLabel = createLabel(this.form, this.password, "Your password")
         this.password =createInput(this.passwordLabel, "password", "Password")
